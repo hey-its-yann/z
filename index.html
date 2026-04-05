@@ -10,10 +10,9 @@
     
     <style>
         :root {
-            /* Upgraded to a modern, premium pride gradient (smoother transitions) */
             --modern-pride: linear-gradient(135deg, #FF3B30, #FF9500, #FFCC00, #4CD964, #5AC8FA, #007AFF, #5856D6);
-            --glass-bg: rgba(255, 255, 255, 0.15);
-            --border: rgba(255, 255, 255, 0.3);
+            --glass-bg: rgba(20, 20, 25, 0.6); /* Darker glass for better contrast */
+            --border: rgba(255, 255, 255, 0.15);
         }
 
         * {
@@ -23,58 +22,71 @@
             font-family: 'Outfit', sans-serif;
         }
 
+        /* ALIGNMENT FIX: Locked down the centering logic.
+           Added padding so the card never touches the screen edges on small devices.
+        */
         body {
             margin: 0;
-            min-height: 100vh;
+            height: 100vh; /* Fixed height instead of min-height to prevent unwanted scrolling */
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #111; 
+            background-color: #09090b; /* Deep, sleek studio black */
             overflow: hidden;
-            position: relative; 
+            position: relative;
+            padding: 20px; 
         }
 
-        /* PERFORMANCE FIX: 
-           Instead of animating the background, we animate a giant blurred element 
-           using 'transform'. This offloads the work to the GPU and stops the lag! 
+        /* NEW BACKGROUND: A professional dark grid pattern.
         */
-        .bg-layer {
+        .grid-background {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg, 
-                #FF3B30, #FF9500, #FFCC00, #4CD964, #5AC8FA, #007AFF, #5856D6, #FF2D55
-            );
-            background-size: 200% 200%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 0;
-            animation: smoothSpin 25s linear infinite;
-            filter: blur(100px); /* Blends the colors beautifully */
-            opacity: 0.85;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px; /* Size of the grid squares */
+            pointer-events: none;
         }
 
-        @keyframes smoothSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* SUBTLE GLOW: A soft, slow-pulsing colorful orb perfectly centered behind the card.
+        */
+        .center-glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(90, 200, 250, 0.15) 0%, rgba(255, 45, 85, 0.1) 40%, transparent 70%);
+            border-radius: 50%;
+            z-index: 1;
+            filter: blur(40px);
+            animation: pulseGlow 8s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 1; }
         }
 
         /* Upgraded Glassmorphism Card */
         .card {
             position: relative;
-            z-index: 10; /* Keeps card above the spinning background */
+            z-index: 10; 
             background: var(--glass-bg);
-            backdrop-filter: blur(35px);
-            -webkit-backdrop-filter: blur(35px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border);
+            border-top: 1px solid rgba(255, 255, 255, 0.3); /* Highlights the top edge like real glass */
             border-radius: 32px;
             padding: 50px 30px;
-            width: 90%;
+            width: 100%;
             max-width: 400px;
             text-align: center;
-            /* Added an inner glow and a deeper drop shadow for 3D depth */
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 2px 15px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
@@ -88,10 +100,9 @@
             letter-spacing: -1px;
             margin-bottom: 30px;
             color: #ffffff;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
-        /* Grid for Icons/Buttons */
         .asset-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -100,33 +111,32 @@
 
         .asset-link {
             text-decoration: none;
-            color: white;
-            background: rgba(0, 0, 0, 0.25); /* Darker background so white text pops */
+            color: rgba(255, 255, 255, 0.85); /* Slightly muted text for better contrast */
+            background: rgba(255, 255, 255, 0.05); 
             padding: 20px;
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
         }
 
         .asset-link:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.6);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
-        /* Rainbow Hover Effect for specific items */
+        /* Rainbow Hover Effect */
         .asset-link.rainbow:hover {
             border-color: transparent;
             background: var(--modern-pride);
             color: #fff;
-            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.4); /* Adds a warm glow */
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(255, 59, 48, 0.3);
         }
 
         .asset-link span {
@@ -134,25 +144,25 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            opacity: 0.9;
         }
 
         .svg-full {
             grid-column: span 2;
             flex-direction: row;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.1); /* Slightly lighter for the master button */
+            background: rgba(255, 255, 255, 0.08); 
         }
 
         i {
             stroke-width: 2px;
-            color: #ffffff;
+            color: inherit; /* Adopts the color of the text */
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-layer"></div>
+    <div class="grid-background"></div>
+    <div class="center-glow"></div>
 
     <div class="card">
         <header class="brand-header">
