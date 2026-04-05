@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZeZo - Preview</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&family=Righteous&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Same vibrant background */
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientMove 10s ease infinite;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Back Button Style */
+        .back-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            text-decoration: none;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+
+        /* Central Animated Logo */
+        .logo-preview {
+            width: 250px;
+            height: auto;
+            /* This filter turns the black SVG to pure white and adds a glow */
+            filter: brightness(0) invert(1) drop-shadow(0 15px 25px rgba(0,0,0,0.3));
+            animation: floatLogo 4s ease-in-out infinite;
+            z-index: 5;
+        }
+
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        /* Container for background notes */
+        #notes-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-note {
+            position: absolute;
+            bottom: -50px;
+            color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+            animation: riseUp linear infinite;
+        }
+
+        @keyframes riseUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn">
+        <i data-lucide="arrow-left"></i> Back
+    </a>
+
+    <div id="notes-container"></div>
+
+    <img src="logo-black.svg" alt="ZeZo Logo" class="logo-preview">
+
+    <script>
+        lucide.createIcons();
+
+        // JavaScript to generate floating musical notes randomly
+        const container = document.getElementById('notes-container');
+        const numberOfNotes = 25; // Adjust this for more or fewer notes
+
+        for (let i = 0; i < numberOfNotes; i++) {
+            const note = document.createElement('div');
+            note.classList.add('floating-note');
+            
+            // We use an inline SVG for the music note so it renders instantly
+            note.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>`;
+            
+            // Randomize position, size, and animation timing
+            const size = Math.random() * 30 + 15; // Between 15px and 45px
+            note.style.width = `${size}px`;
+            note.style.height = `${size}px`;
+            note.style.left = `${Math.random() * 100}vw`; // Random horizontal position
+            note.style.animationDuration = `${Math.random() * 8 + 7}s`; // Between 7s and 15s to rise
+            note.style.animationDelay = `${Math.random() * 5}s`; // Staggered start times
+            
+            container.appendChild(note);
+        }
+    </script>
+</body>
+</html>
