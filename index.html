@@ -92,7 +92,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Rainbow Hover Effect applied to all buttons */
         .asset-link:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
@@ -116,6 +115,27 @@
 
         i {
             stroke-width: 2.5px;
+        }
+
+        /* --- NEW: MOBILE RESPONSIVENESS --- */
+        @media (max-width: 480px) {
+            .card {
+                padding: 40px 20px; /* Slightly less padding inside the card */
+                width: 95%; /* Let the card take up a bit more of the small screen */
+            }
+            .brand-header h1 {
+                font-size: 2rem; /* Shrink title slightly */
+                margin-bottom: 20px;
+            }
+            .asset-grid {
+                gap: 10px; /* Bring buttons slightly closer together */
+            }
+            .asset-link {
+                padding: 15px 10px; /* Reduce button padding so content fits */
+            }
+            .asset-link span {
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
