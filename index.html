@@ -22,7 +22,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* Default font for the entire page */
             font-family: 'Outfit', sans-serif;
         }
 
@@ -31,7 +30,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Vibrant, high-energy animated background */
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
             animation: gradientMove 10s ease infinite;
@@ -44,7 +42,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Glassmorphism Card */
         .card {
             background: var(--glass-bg);
             backdrop-filter: blur(25px);
@@ -64,7 +61,6 @@
         }
 
         .brand-header h1 {
-            /* Applying Righteous strictly to the heading */
             font-family: 'Righteous', sans-serif;
             font-size: 2.5rem;
             letter-spacing: 1px;
@@ -76,7 +72,6 @@
             background-clip: text;
         }
 
-        /* Grid for Icons/Buttons */
         .asset-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -97,14 +92,10 @@
             transition: all 0.3s ease;
         }
 
+        /* Rainbow Hover Effect applied to all buttons */
         .asset-link:hover {
-            background: rgba(255, 255, 255, 0.25);
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        /* Rainbow Hover Effect for specific items */
-        .asset-link.rainbow:hover {
             border-color: transparent;
             background: var(--pride-gradient);
             color: #000;
@@ -151,7 +142,7 @@
                 <span>Red</span>
             </a>
 
-            <a href="logo-pink.png" download class="asset-link rainbow">
+            <a href="logo-pink.png" download class="asset-link">
                 <i data-lucide="heart"></i>
                 <span>Vibe</span>
             </a>
@@ -164,7 +155,6 @@
     </div>
 
     <script>
-        // Initialize Lucide Icons
         lucide.createIcons();
     </script>
 </body>
