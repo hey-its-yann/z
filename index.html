@@ -1,0 +1,314 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZezoMusic | Official Assets</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* CSS Variables for our soft pastel rainbow theme */
+        :root {
+            --pastel-red: #ffb3ba;
+            --pastel-orange: #ffdfba;
+            --pastel-yellow: #ffffba;
+            --pastel-green: #baffc9;
+            --pastel-blue: #bae1ff;
+            --pastel-purple: #e2cbff;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(
+                -45deg, 
+                var(--pastel-red), 
+                var(--pastel-orange), 
+                var(--pastel-yellow), 
+                var(--pastel-green), 
+                var(--pastel-blue), 
+                var(--pastel-purple)
+            );
+            background-size: 400% 400%;
+            animation: pastelFlow 20s ease infinite;
+            color: #333;
+            padding: 20px;
+            position: relative; /* Keeps absolute elements contained */
+            overflow: hidden; /* Prevents scrolling */
+        }
+
+        @keyframes pastelFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Container to keep background blobs separated from the main content */
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none; /* Prevents blobs from blocking clicks */
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(50px);
+            opacity: 0.7;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+        .blob-1 { width: 350px; height: 350px; background: var(--pastel-red); top: -50px; left: -50px; }
+        .blob-2 { width: 450px; height: 450px; background: var(--pastel-blue); bottom: -100px; right: -100px; animation-delay: -5s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
+        }
+
+        /* Upgraded Glassmorphism Card */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 10; /* Guaranteed to be above the background container */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .logo-preview {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 25px auto;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05), inset 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+
+        .logo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        h1 {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: clamp(1.5rem, 5vw, 2rem); 
+            color: #2c2c2c;
+        }
+
+        p {
+            font-weight: 400;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .download-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            padding: 14px 24px;
+            border-radius: 16px;
+            border: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .btn-white { border: 1px solid rgba(255,255,255,0.8); background: rgba(255, 255, 255, 0.9); color: #333; }
+        .btn-black { background: rgba(50, 50, 50, 0.85); color: #fff; }
+        .btn-red { background: rgba(255, 179, 186, 0.6); color: #c42a3f; border: 1px solid #ffb3ba; }
+        .btn-pink { background: rgba(255, 192, 203, 0.6); color: #d11a5c; border: 1px solid #ffc0cb; }
+        .btn-svg { background: transparent; border: 2px dashed rgba(50, 50, 50, 0.4); color: #333; }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .btn-white:hover { background: #ffffff; }
+        .btn-black:hover { background: #222; color: #fff; }
+        .btn-red:hover { background: var(--pastel-red); }
+        .btn-pink:hover { background: #ffc0cb; }
+        .btn-svg:hover { border-color: #333; background: rgba(255,255,255,0.4); }
+
+        .btn i.fa-cloud-arrow-down {
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .btn:hover i.fa-cloud-arrow-down {
+            transform: translateY(3px);
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple-anim 0.6s linear;
+            background-color: rgba(255, 255, 255, 0.7);
+            pointer-events: none;
+        }
+        .btn-black .ripple { background-color: rgba(255, 255, 255, 0.2); }
+
+        @keyframes ripple-anim {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c2c2c;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="glass-card">
+        
+        <div class="logo-preview">
+            <img src="logo-white.png" alt="ZezoMusic Logo">
+        </div>
+        
+        <h1>ZezoMusic</h1>
+        <p>Download the official brand assets below.</p>
+
+        <div class="download-options">
+            <a href="logo-white.png" download class="btn btn-white" data-name="White PNG">
+                <span><i class="fa-regular fa-image"></i> White (PNG)</span> <i class="fa-solid fa-cloud-arrow-down"></i>
+            </a>
+            
+            <a href="logo-black.png" download class="btn btn-black" data-name="Black PNG">
+                <span><i class="fa-regular fa-image"></i> Black (PNG)</span> <i class="fa-solid fa-cloud-arrow-down"></i>
+            </a>
+
+            <a href="logo-red.png" download class="btn btn-red" data-name="Red PNG">
+                <span><i class="fa-regular fa-image"></i> Red (PNG)</span> <i class="fa-solid fa-cloud-arrow-down"></i>
+            </a>
+
+            <a href="logo-pink.png" download class="btn btn-pink" data-name="Pink PNG">
+                <span><i class="fa-regular fa-image"></i> Pink (PNG)</span> <i class="fa-solid fa-cloud-arrow-down"></i>
+            </a>
+            
+            <a href="logo-black.svg" download class="btn btn-svg" data-name="Black SVG">
+                <span><i class="fa-solid fa-vector-square"></i> Black (SVG)</span> <i class="fa-solid fa-cloud-arrow-down"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check" style="color: var(--pastel-green);"></i>
+        <span id="toast-message">Download started!</span>
+    </div>
+
+    <script>
+        const buttons = document.querySelectorAll('.btn');
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', function (e) {
+                let ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                
+                let rect = this.getBoundingClientRect();
+                let x = e.clientX - rect.left;
+                let y = e.clientY - rect.top;
+                
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+
+                const fileName = this.getAttribute('data-name');
+                showToast(`Downloading ${fileName}...`);
+            });
+        });
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
