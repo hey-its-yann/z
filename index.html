@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,14 +10,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* CSS Variables for our soft pastel rainbow theme */
+        /* CSS Variables - UPGRADED to a more saturated, vibrant rainbow! */
         :root {
-            --pastel-red: #ffb3ba;
-            --pastel-orange: #ffdfba;
-            --pastel-yellow: #ffffba;
-            --pastel-green: #baffc9;
-            --pastel-blue: #bae1ff;
-            --pastel-purple: #e2cbff;
+            --pastel-red: #ff4757;    
+            --pastel-orange: #ffa502; 
+            --pastel-yellow: #eccc68; 
+            --pastel-green: #2ed573;  
+            --pastel-blue: #1e90ff;   
+            --pastel-purple: #9b59b6; 
             --glass-bg: rgba(255, 255, 255, 0.45);
             --glass-border: rgba(255, 255, 255, 0.6);
         }
@@ -48,8 +48,8 @@
             animation: pastelFlow 20s ease infinite;
             color: #333;
             padding: 20px;
-            position: relative; /* Keeps absolute elements contained */
-            overflow: hidden; /* Prevents scrolling */
+            position: relative; 
+            overflow: hidden; 
         }
 
         @keyframes pastelFlow {
@@ -58,7 +58,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Container to keep background blobs separated from the main content */
         .background-container {
             position: absolute;
             top: 0;
@@ -66,7 +65,7 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            pointer-events: none; /* Prevents blobs from blocking clicks */
+            pointer-events: none; 
             overflow: hidden;
         }
 
@@ -85,7 +84,6 @@
             100% { transform: translate(30px, 50px) scale(1.1); }
         }
 
-        /* Upgraded Glassmorphism Card */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(25px);
@@ -98,7 +96,7 @@
             max-width: 450px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
             position: relative;
-            z-index: 10; /* Guaranteed to be above the background container */
+            z-index: 10; 
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
@@ -238,7 +236,7 @@
     <div class="glass-card">
         
         <div class="logo-preview">
-            <img src="logo-white.png" alt="ZezoMusic Logo">
+            <img src="logo-black.png" alt="ZezoMusic Logo">
         </div>
         
         <h1>ZezoMusic</h1>
