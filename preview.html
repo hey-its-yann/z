@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>zEzO - Preview</title>
+    <title>ZeZo - Preview</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,26 +63,27 @@
             transform: translateX(-5px);
         }
 
-        /* UPDATED: More reasonable delay (1.5s) and a smoother, slower fade-in (3s) */
+        /* --- THE MYSTERIOUS REVEAL --- */
         .logo-wrapper {
             position: relative;
             z-index: 5;
             opacity: 0; 
-            transform: scale(0.8); /* Starts slightly smaller instead of fully shrunk */
-            animation: smoothEntrance 3s ease-out 1.5s forwards;
+            transform: scale(0.85);
+            /* Waits 3s, then takes 4.5s to slowly emerge */
+            animation: mysteriousEntrance 4.5s ease-in-out 3s forwards;
         }
 
         .logo-preview {
             width: 250px;
             height: auto;
             filter: brightness(0) invert(1) drop-shadow(0 0 30px rgba(255,255,255,0.6));
-            /* Waits 4.5 seconds total (1.5s delay + 3s entrance) */
-            animation: floatLogo 4s ease-in-out 4.5s infinite;
+            /* 3s delay + 4.5s entrance = 7.5s wait before floating starts */
+            animation: floatLogo 4s ease-in-out 7.5s infinite;
         }
 
-        /* UPDATED: A gentle, gradual fade and zoom */
-        @keyframes smoothEntrance {
-            0% { opacity: 0; transform: scale(0.8) translateY(20px); filter: blur(8px); }
+        @keyframes mysteriousEntrance {
+            0% { opacity: 0; transform: scale(0.85) translateY(10px); filter: blur(20px); }
+            50% { opacity: 0.5; filter: blur(8px); }
             100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0px); }
         }
 
@@ -91,39 +92,37 @@
             50% { transform: translateY(-20px) scale(1.05); }
         }
 
-        /* --- NEW: Soundwaves Styles --- */
-        .soundwaves-container {
+        /* --- NEW: LAG-FREE HORIZONTAL WAVES --- */
+        .horizontal-waves {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 2; /* Behind the logo, above the notes */
             width: 100%;
-            height: 100%;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            gap: 40px; /* Space between the lines */
+            z-index: 2; /* Behind the logo */
             pointer-events: none;
         }
 
-        .wave {
-            position: absolute;
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            border-radius: 50%;
-            opacity: 0;
-            /* The animation pushes the rings outward */
-            animation: ripple 6s infinite ease-out;
+        .h-line {
+            height: 2px;
+            /* Fades out at the edges for a sleek look */
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            /* scaleX is highly optimized by browsers, preventing lag */
+            animation: waveStretch 4s ease-in-out infinite alternate;
         }
 
-        /* Stagger the start times so they flow continuously */
-        .wave:nth-child(1) { animation-delay: 2s; }
-        .wave:nth-child(2) { animation-delay: 3.5s; }
-        .wave:nth-child(3) { animation-delay: 5s; }
-        .wave:nth-child(4) { animation-delay: 6.5s; }
+        /* Stagger the widths and animation times for an organic feel */
+        .line-1 { width: 30%; animation-delay: 0s; }
+        .line-2 { width: 60%; animation-delay: -1.5s; height: 3px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent); }
+        .line-3 { width: 30%; animation-delay: -3s; }
 
-        @keyframes ripple {
-            0% { width: 200px; height: 200px; opacity: 0.8; border-width: 4px; }
-            100% { width: 800px; height: 800px; opacity: 0; border-width: 1px; }
+        @keyframes waveStretch {
+            0% { transform: scaleX(0.7); opacity: 0.2; }
+            100% { transform: scaleX(1.4); opacity: 0.9; filter: drop-shadow(0 0 10px rgba(255,255,255,0.8)); }
         }
 
         /* --- Musical Notes Styles --- */
@@ -161,11 +160,10 @@
 
     <div id="notes-container"></div>
 
-    <div class="soundwaves-container">
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
+    <div class="horizontal-waves">
+        <div class="h-line line-1"></div>
+        <div class="h-line line-2"></div>
+        <div class="h-line line-3"></div>
     </div>
 
     <div class="logo-wrapper">
