@@ -115,6 +115,19 @@
             80% { opacity: 1; transform: translate(-20px, -80vh) rotate(270deg) scale(1.1); }
             100% { transform: translate(0, -120vh) rotate(360deg) scale(0.5); opacity: 0; }
         }
+
+        /* --- NEW: MOBILE RESPONSIVENESS --- */
+        @media (max-width: 480px) {
+            .logo-preview {
+                width: 180px; /* Scale down the logo so it fits comfortably */
+            }
+            .back-btn {
+                top: 20px;
+                left: 20px;
+                padding: 8px 15px; /* Shrink button slightly */
+                font-size: 0.75rem;
+            }
+        }
     </style>
 </head>
 <body>
