@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZezoMusic | Studio</title>
+    <title>zEzO</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&family=Righteous&display=swap" rel="stylesheet">
+    
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
         :root {
-            --pride-gradient: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #00ff00, #0000ff, #8b00ff);
+            --pride-gradient: linear-gradient(45deg, #FFB3B3, #FFD1A9, #FFF8B3, #B3FFB3, #B3E0FF, #D1B3FF);
             --glass-bg: rgba(255, 255, 255, 0.1);
             --border: rgba(255, 255, 255, 0.2);
         }
@@ -19,6 +22,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            /* Default font for the entire page */
             font-family: 'Outfit', sans-serif;
         }
 
@@ -60,9 +64,10 @@
         }
 
         .brand-header h1 {
+            /* Applying Righteous strictly to the heading */
+            font-family: 'Righteous', sans-serif;
             font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
+            letter-spacing: 1px;
             margin-bottom: 30px;
             background: #fff;
             -webkit-background-clip: text;
@@ -127,33 +132,33 @@
 
     <div class="card">
         <header class="brand-header">
-            <h1>ZEZO</h1>
+            <h1>ZeZo</h1>
         </header>
 
         <div class="asset-grid">
             <a href="logo-white.png" download class="asset-link">
                 <i data-lucide="image"></i>
-                <span>White PNG</span>
+                <span>White</span>
             </a>
             
             <a href="logo-black.png" download class="asset-link">
                 <i data-lucide="image-down"></i>
-                <span>Black PNG</span>
+                <span>Black</span>
             </a>
 
             <a href="logo-red.png" download class="asset-link">
                 <i data-lucide="palette"></i>
-                <span>Red PNG</span>
+                <span>Red</span>
             </a>
 
             <a href="logo-pink.png" download class="asset-link rainbow">
                 <i data-lucide="heart"></i>
-                <span>Vibe PNG</span>
+                <span>Vibe</span>
             </a>
             
             <a href="logo-black.svg" download class="asset-link svg-full">
                 <i data-lucide="layers"></i>
-                <span>Download Master SVG</span>
+                <span>Master</span>
             </a>
         </div>
     </div>
