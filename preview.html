@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZeZo - Preview</title>
+    <title>zEzO - Preview</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,38 +63,70 @@
             transform: translateX(-5px);
         }
 
-        /* NEW: Wrapper to handle the delayed zoom-in entrance */
+        /* UPDATED: More reasonable delay (1.5s) and a smoother, slower fade-in (3s) */
         .logo-wrapper {
             position: relative;
             z-index: 5;
-            opacity: 0; /* Hidden initially */
-            transform: scale(0); /* Shrunk initially */
-            /* Waits 5s, animates for 2s, and stays in the final visible state */
-            animation: epicEntrance 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 5s forwards;
+            opacity: 0; 
+            transform: scale(0.8); /* Starts slightly smaller instead of fully shrunk */
+            animation: smoothEntrance 3s ease-out 1.5s forwards;
         }
 
-        /* The logo handles the glow and the continuous floating */
         .logo-preview {
             width: 250px;
             height: auto;
             filter: brightness(0) invert(1) drop-shadow(0 0 30px rgba(255,255,255,0.6));
-            /* Waits 7 seconds (5s delay + 2s entrance) before starting the float */
-            animation: floatLogo 4s ease-in-out 7s infinite;
+            /* Waits 4.5 seconds total (1.5s delay + 3s entrance) */
+            animation: floatLogo 4s ease-in-out 4.5s infinite;
         }
 
-        /* Keyframes for the dramatic zoom and fade in */
-        @keyframes epicEntrance {
-            0% { opacity: 0; transform: scale(0) translateY(50px); filter: blur(10px); }
-            50% { opacity: 1; filter: blur(0px); }
+        /* UPDATED: A gentle, gradual fade and zoom */
+        @keyframes smoothEntrance {
+            0% { opacity: 0; transform: scale(0.8) translateY(20px); filter: blur(8px); }
             100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0px); }
         }
 
-        /* Keyframes for the continuous gentle float */
         @keyframes floatLogo {
             0%, 100% { transform: translateY(0) scale(1); }
             50% { transform: translateY(-20px) scale(1.05); }
         }
 
+        /* --- NEW: Soundwaves Styles --- */
+        .soundwaves-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2; /* Behind the logo, above the notes */
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .wave {
+            position: absolute;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            opacity: 0;
+            /* The animation pushes the rings outward */
+            animation: ripple 6s infinite ease-out;
+        }
+
+        /* Stagger the start times so they flow continuously */
+        .wave:nth-child(1) { animation-delay: 2s; }
+        .wave:nth-child(2) { animation-delay: 3.5s; }
+        .wave:nth-child(3) { animation-delay: 5s; }
+        .wave:nth-child(4) { animation-delay: 6.5s; }
+
+        @keyframes ripple {
+            0% { width: 200px; height: 200px; opacity: 0.8; border-width: 4px; }
+            100% { width: 800px; height: 800px; opacity: 0; border-width: 1px; }
+        }
+
+        /* --- Musical Notes Styles --- */
         #notes-container {
             position: absolute;
             top: 0;
@@ -108,12 +140,10 @@
         .floating-note {
             position: absolute;
             bottom: -50px;
-            color: rgba(255, 255, 255, 0.3);
-            /* Updated to use the new swaying animation */
+            color: rgba(255, 255, 255, 0.25);
             animation: riseAndSway linear infinite;
         }
 
-        /* NEW: Complex animation for notes to sway, spin, and pulse */
         @keyframes riseAndSway {
             0% { transform: translate(0, 0) rotate(0deg) scale(0.5); opacity: 0; }
             20% { opacity: 1; transform: translate(-30px, -20vh) rotate(45deg) scale(1.2); }
@@ -131,6 +161,13 @@
 
     <div id="notes-container"></div>
 
+    <div class="soundwaves-container">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
     <div class="logo-wrapper">
         <img src="logo-black.svg" alt="ZeZo Logo" class="logo-preview">
     </div>
@@ -139,20 +176,18 @@
         lucide.createIcons();
 
         const container = document.getElementById('notes-container');
-        const numberOfNotes = 30; // Increased slightly for more atmosphere
+        const numberOfNotes = 25; 
 
-        // Array of different musical symbols to make it more dynamic
         const notePaths = [
-            '<path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle>', // Beamed note
-            '<path d="M9 18V5l12-2"></path><circle cx="6" cy="18" r="3"></circle>', // Single eighth note
-            '<circle cx="12" cy="18" r="3"></circle><path d="M15 18V6"></path>' // Quarter note
+            '<path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle>',
+            '<path d="M9 18V5l12-2"></path><circle cx="6" cy="18" r="3"></circle>',
+            '<circle cx="12" cy="18" r="3"></circle><path d="M15 18V6"></path>'
         ];
 
         for (let i = 0; i < numberOfNotes; i++) {
             const note = document.createElement('div');
             note.classList.add('floating-note');
             
-            // Randomly pick a note symbol from the array
             const randomPath = notePaths[Math.floor(Math.random() * notePaths.length)];
             note.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${randomPath}</svg>`;
             
@@ -160,8 +195,8 @@
             note.style.width = `${size}px`;
             note.style.height = `${size}px`;
             note.style.left = `${Math.random() * 100}vw`; 
-            note.style.animationDuration = `${Math.random() * 8 + 8}s`; // Slower rise to match the vibe
-            note.style.animationDelay = `${Math.random() * 10}s`; // Spread out the start times more
+            note.style.animationDuration = `${Math.random() * 8 + 8}s`; 
+            note.style.animationDelay = `${Math.random() * 10}s`; 
             
             container.appendChild(note);
         }
