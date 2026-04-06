@@ -13,7 +13,8 @@
     
     <style>
         :root {
-            --pride-gradient: linear-gradient(45deg, #FFB3B3, #FFD1A9, #FFF8B3, #B3FFB3, #B3E0FF, #D1B3FF);
+            /* Fixed typo here! Removed the accidental 'var(' */
+            --pride-gradient: linear-gradient(45deg, #FF8C8C, #FFC085, #FFF285, #8CFF8C, #8CD1FF, #C085FF);
             --glass-bg: rgba(255, 255, 255, 0.1);
             --border: rgba(255, 255, 255, 0.2);
         }
@@ -70,6 +71,8 @@
             -webkit-text-fill-color: transparent;
             background-image: var(--pride-gradient);
             background-clip: text;
+            background-size: 300% 300%;
+            animation: gradientMove 5s ease infinite;
         }
 
         .asset-grid {
@@ -92,13 +95,27 @@
             transition: all 0.3s ease;
         }
 
-        /* Rainbow Hover Effect applied to all buttons */
         .asset-link:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             border-color: transparent;
             background: var(--pride-gradient);
+            background-size: 300% 300%; 
+            animation: gradientMove 6s ease infinite; 
             color: #000;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .preview-btn {
+            background: var(--pride-gradient);
+            background-size: 300% 300%;
+            animation: gradientMove 6s ease infinite;
+            color: #000;
+            border-color: transparent;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); 
+        }
+
+        .preview-btn:hover {
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.8), 0 10px 20px rgba(0,0,0,0.2);
         }
 
         .asset-link span {
@@ -127,7 +144,7 @@
         </header>
 
         <div class="asset-grid">
-            <a href="preview.html" class="asset-link svg-full">
+            <a href="preview.html" class="asset-link svg-full preview-btn">
                 <i data-lucide="play-circle"></i>
                 <span>Preview</span>
             </a>
