@@ -19,6 +19,12 @@
             font-family: 'Outfit', sans-serif;
         }
 
+        :root {
+            --btn-text-color: white;
+            --btn-border-color: rgba(255, 255, 255, 0.2);
+            --btn-bg-hover: rgba(255, 255, 255, 0.3);
+        }
+
         body {
             min-height: 100vh;
             display: flex;
@@ -29,6 +35,7 @@
             animation: gradientMove 10s ease infinite;
             overflow: hidden;
             position: relative;
+            transition: background 0.8s ease;
         }
 
         @keyframes gradientMove {
@@ -37,33 +44,91 @@
             100% { background-position: 0% 50%; }
         }
 
-        .back-btn {
+        .top-controls {
             position: absolute;
             top: 30px;
-            left: 30px;
+            width: 100%;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .back-btn, .theme-btn {
+            pointer-events: auto;
             text-decoration: none;
-            color: white;
+            color: var(--btn-text-color);
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             padding: 10px 20px;
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--btn-border-color);
             display: flex;
             align-items: center;
             gap: 8px;
             font-weight: 600;
             text-transform: uppercase;
             font-size: 0.8rem;
-            z-index: 10;
             transition: all 0.3s ease;
+            cursor: pointer;
+            outline: none;
         }
 
-        .back-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateX(-5px);
+        .back-btn:hover, .theme-btn:hover {
+            background: var(--btn-bg-hover);
+            transform: translateY(-3px);
         }
 
-        /* --- THE MYSTERIOUS REVEAL --- */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            pointer-events: auto;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--btn-border-color);
+            border-radius: 15px;
+            overflow: hidden;
+            min-width: 130px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content button {
+            width: 100%;
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            color: var(--btn-text-color);
+            text-align: left;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dropdown-content button:hover {
+            background: var(--btn-bg-hover);
+        }
+
         .logo-wrapper {
             position: relative;
             z-index: 5;
@@ -75,8 +140,9 @@
         .logo-preview {
             width: 250px;
             height: auto;
-            filter: brightness(0) invert(1) drop-shadow(0 0 30px rgba(255,255,255,0.6));
+            filter: drop-shadow(0 0 30px rgba(255,255,255,0.6));
             animation: floatLogo 4s ease-in-out 7.5s infinite;
+            transition: opacity 0.3s ease, filter 0.5s ease;
         }
 
         @keyframes mysteriousEntrance {
@@ -90,7 +156,6 @@
             50% { transform: translateY(-20px) scale(1.05); }
         }
 
-        /* --- Musical Notes Styles --- */
         #notes-container {
             position: absolute;
             top: 0;
@@ -104,29 +169,44 @@
         .floating-note {
             position: absolute;
             bottom: -50px;
-            color: rgba(255, 255, 255, 0.25);
+            color: var(--btn-text-color);
+            opacity: 0.25;
             animation: riseAndSway linear infinite;
         }
 
         @keyframes riseAndSway {
             0% { transform: translate(0, 0) rotate(0deg) scale(0.5); opacity: 0; }
-            20% { opacity: 1; transform: translate(-30px, -20vh) rotate(45deg) scale(1.2); }
+            20% { opacity: 0.25; transform: translate(-30px, -20vh) rotate(45deg) scale(1.2); }
             50% { transform: translate(30px, -50vh) rotate(180deg) scale(0.8); }
-            80% { opacity: 1; transform: translate(-20px, -80vh) rotate(270deg) scale(1.1); }
+            80% { opacity: 0.25; transform: translate(-20px, -80vh) rotate(270deg) scale(1.1); }
             100% { transform: translate(0, -120vh) rotate(360deg) scale(0.5); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <a href="index.html" class="back-btn">
-        <i data-lucide="arrow-left"></i> Back
-    </a>
+    <div class="top-controls">
+        <a href="index.html" class="back-btn">
+            <i data-lucide="arrow-left"></i> Back
+        </a>
+        
+        <div class="dropdown">
+            <button class="theme-btn">
+                <i data-lucide="palette"></i> Theme
+            </button>
+            <div class="dropdown-content">
+                <button onclick="changeTheme('white')"><i data-lucide="sun" style="width: 16px;"></i> White</button>
+                <button onclick="changeTheme('red')"><i data-lucide="flame" style="width: 16px;"></i> Red</button>
+                <button onclick="changeTheme('black')"><i data-lucide="moon" style="width: 16px;"></i> Black</button>
+                <button onclick="changeTheme('vibe')"><i data-lucide="sparkles" style="width: 16px;"></i> Vibe</button>
+            </div>
+        </div>
+    </div>
 
     <div id="notes-container"></div>
 
     <div class="logo-wrapper">
-        <img src="logo-black.svg" alt="ZeZo Logo" class="logo-preview">
+        <img id="main-logo" src="logo-white.png" alt="ZeZo Logo" class="logo-preview">
     </div>
 
     <audio id="bg-music" src="I Get U.oga" autoplay loop></audio>
@@ -160,8 +240,58 @@
             container.appendChild(note);
         }
 
-        // Sets volume to 50%
         document.getElementById('bg-music').volume = 0.5; 
+
+        const themes = {
+            white: {
+                src: 'logo-white.png',
+                bg: 'linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)',
+                isLightBg: false
+            },
+            red: {
+                src: 'logo-red.png',
+                bg: '#ffffff',
+                isLightBg: true
+            },
+            black: {
+                src: 'logo-black.png',
+                bg: '#fdfdfd',
+                isLightBg: true
+            },
+            vibe: {
+                src: 'logo-pink.png',
+                bg: 'linear-gradient(-45deg, #0f0c29, #302b63, #24243e)',
+                isLightBg: false
+            }
+        };
+
+        function changeTheme(themeName) {
+            const logo = document.getElementById('main-logo');
+            const root = document.documentElement;
+            const selectedTheme = themes[themeName];
+
+            logo.style.opacity = '0';
+            
+            setTimeout(() => {
+                logo.src = selectedTheme.src;
+                document.body.style.background = selectedTheme.bg;
+                document.body.style.backgroundSize = '400% 400%';
+
+                if (selectedTheme.isLightBg) {
+                    root.style.setProperty('--btn-text-color', '#333');
+                    root.style.setProperty('--btn-border-color', 'rgba(0, 0, 0, 0.2)');
+                    root.style.setProperty('--btn-bg-hover', 'rgba(0, 0, 0, 0.1)');
+                    logo.style.filter = 'drop-shadow(0 0 30px rgba(0,0,0,0.15))';
+                } else {
+                    root.style.setProperty('--btn-text-color', 'white');
+                    root.style.setProperty('--btn-border-color', 'rgba(255, 255, 255, 0.2)');
+                    root.style.setProperty('--btn-bg-hover', 'rgba(255, 255, 255, 0.3)');
+                    logo.style.filter = 'drop-shadow(0 0 30px rgba(255,255,255,0.4))';
+                }
+
+                logo.style.opacity = '1';
+            }, 300);
+        }
     </script>
 </body>
 </html>
