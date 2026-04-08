@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>zEzO</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,6 @@
     
     <style>
         :root {
-            /* Fixed typo here! Removed the accidental 'var(' */
             --pride-gradient: linear-gradient(45deg, #FF8C8C, #FFC085, #FFF285, #8CFF8C, #8CD1FF, #C085FF);
             --glass-bg: rgba(255, 255, 255, 0.1);
             --border: rgba(255, 255, 255, 0.2);
@@ -26,15 +25,19 @@
             font-family: 'Outfit', sans-serif;
         }
 
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
-            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
             animation: gradientMove 10s ease infinite;
-            overflow: hidden;
         }
 
         @keyframes gradientMove {
